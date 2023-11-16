@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.PostConstruct;
 
@@ -58,7 +59,6 @@ public class Controller {
 	}
 
 	private void doControlRequest(ControlType type) throws IOException {
-		System.out.println("port : " + port);
 		try (Socket socket = new Socket(InetAddress.getByName(lbIpAddr), lbPort)) {
 			try (InputStream inputStream = socket.getInputStream();
 				 OutputStream outputStream = socket.getOutputStream()) {
@@ -66,6 +66,7 @@ public class Controller {
 					new ControlRequest(type, Protocol.TCP, port)));
 				outputStream.flush();
 				byte[] bytes = inputStream.readAllBytes();
+				System.out.println(new String(bytes, StandardCharsets.UTF_8));
 				objectMapper.readValue(bytes, ControlSuccessResponse.class);
 			}
 
