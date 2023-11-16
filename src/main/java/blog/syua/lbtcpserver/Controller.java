@@ -37,7 +37,7 @@ public class Controller {
 
 	@PostConstruct
 	public void init() throws IOException {
-		new HealthCheckRequestHandler(port).startHandle();
+		new HealthCheckRequestHandler(5555).startHandle();
 		doControlRequest(ControlType.REGISTER);
 	}
 

@@ -30,6 +30,7 @@ public class HealthCheckRequestHandler {
 				Socket nodeSocket;
 				while (Objects.nonNull(nodeSocket = serverSocket.accept())) {
 					Socket finalNodeSocket = nodeSocket;
+					System.out.println("health check");
 					threadPool.execute(() -> handleRequest(finalNodeSocket));
 				}
 			} catch (Exception e) {
