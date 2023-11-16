@@ -65,6 +65,7 @@ public class Controller {
 				outputStream.write(objectMapper.writeValueAsBytes(
 					new ControlRequest(type, Protocol.TCP, port)));
 				outputStream.flush();
+				socket.shutdownOutput();
 				byte[] bytes = inputStream.readAllBytes();
 				System.out.println(new String(bytes, StandardCharsets.UTF_8));
 				objectMapper.readValue(bytes, ControlSuccessResponse.class);
