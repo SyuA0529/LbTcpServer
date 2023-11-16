@@ -44,7 +44,9 @@ public class HealthCheckRequestHandler {
 			 OutputStream outputStream = socket.getOutputStream()) {
 			byte[] bytes = SocketReadUtils.readTcpAllBytes(inputStream);
 			HealthCheckRequest request = objectMapper.readValue(bytes, HealthCheckRequest.class);
-			outputStream.write(objectMapper.writeValueAsBytes(new HealthCheckResponse()));
+			HealthCheckResponse response = new HealthCheckResponse();
+			response.setHealthy();
+			outputStream.write(objectMapper.writeValueAsBytes(response));
 			outputStream.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
