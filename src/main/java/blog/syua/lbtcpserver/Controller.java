@@ -49,18 +49,18 @@ public class Controller {
 	@GetMapping("/register")
 	public String handleRegisterRequest() throws IOException {
 		doControlRequest(ControlType.REGISTER);
-		return "Success Register";
+		return "Success Register\n";
 	}
 
 	@GetMapping("/unregister")
 	public String handleUnRegisterRequest() throws IOException {
 		doControlRequest(ControlType.UNREGISTER);
-		return "Success UnRegister";
+		return "Success UnRegister\n";
 	}
 
 	@GetMapping("/**")
 	public String echoName(String str) throws UnknownHostException {
-		return "[" + InetAddress.getLocalHost().getHostAddress() + " " + port + "] " + name;
+		return "[" + InetAddress.getLocalHost().getHostAddress() + " " + port + "] " + name + "\n";
 	}
 
 	private void doControlRequest(ControlType type) throws IOException {
