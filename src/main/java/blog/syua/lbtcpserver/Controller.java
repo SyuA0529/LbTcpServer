@@ -52,7 +52,7 @@ public class Controller {
 		return "Success Register";
 	}
 
-	@GetMapping("/un-register")
+	@GetMapping("/unregister")
 	public String handleUnRegisterRequest() throws IOException {
 		doControlRequest(ControlType.UNREGISTER);
 		return "Success UnRegister";
