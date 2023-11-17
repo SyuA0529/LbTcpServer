@@ -12,7 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import blog.syua.lbtcpserver.dto.HealthCheckRequest;
 import blog.syua.lbtcpserver.dto.HealthCheckResponse;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class HealthCheckRequestHandler {
 
 	private final ObjectMapper objectMapper = new ObjectMapper();
@@ -30,7 +32,7 @@ public class HealthCheckRequestHandler {
 				Socket nodeSocket;
 				while (Objects.nonNull(nodeSocket = serverSocket.accept())) {
 					Socket finalNodeSocket = nodeSocket;
-					System.out.println("health check");
+					log.info("Health Check");
 					threadPool.execute(() -> handleRequest(finalNodeSocket));
 				}
 			} catch (Exception e) {

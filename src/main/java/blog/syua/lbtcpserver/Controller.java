@@ -20,7 +20,9 @@ import blog.syua.lbtcpserver.dto.ControlRequest;
 import blog.syua.lbtcpserver.dto.ControlSuccessResponse;
 import blog.syua.lbtcpserver.dto.ControlType;
 import blog.syua.lbtcpserver.dto.Protocol;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 public class Controller {
 
@@ -32,6 +34,9 @@ public class Controller {
 
 	@Value("${server.port}")
 	private int port;
+
+	@Value("${tcp.server.name}")
+	private String name;
 
 	private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -55,7 +60,7 @@ public class Controller {
 
 	@GetMapping("/**")
 	public String echoName(String str) throws UnknownHostException {
-		return "[" + InetAddress.getLocalHost().getHostAddress() + " " + port + "] receive string: " + str;
+		return "[" + InetAddress.getLocalHost().getHostAddress() + " " + port + "] " + name;
 	}
 
 	private void doControlRequest(ControlType type) throws IOException {
@@ -67,7 +72,7 @@ public class Controller {
 				outputStream.flush();
 				socket.shutdownOutput();
 				byte[] bytes = inputStream.readAllBytes();
-				System.out.println(new String(bytes, StandardCharsets.UTF_8));
+				log.info(new String(bytes, StandardCharsets.UTF_8));
 				objectMapper.readValue(bytes, ControlSuccessResponse.class);
 			}
 
